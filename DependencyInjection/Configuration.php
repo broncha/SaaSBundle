@@ -24,6 +24,17 @@ class Configuration implements ConfigurationInterface
         $this->addSubscriptionSection($rootNode);
         $this->addPlanSection($rootNode);
 
+        $rootNode
+            ->children()
+                ->arrayNode('user')->isRequired()
+                    ->children()
+                        ->scalarNode('class')->isRequired()->end()
+                    ->end()
+                ->end()
+            ->end()
+            ;
+
+
         return $treeBuilder;
     }
 

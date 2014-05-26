@@ -55,6 +55,11 @@ class SimplewebSaaSExtensionTest extends \PHPUnit_Framework_TestCase {
         $this->assertParameter('Broncha\UserBundle\Entity\UserPlan', 'simple_saas.plan.class');
     }
 
+    public function testSetUserClass(){
+        $this->createConfiguration();
+        $this->assertParameter('Broncha\UserBundle\Entity\User', 'simple_saas.user.class');
+    }
+
     protected function createConfiguration(){
         $this->builder = new ContainerBuilder();
         $loader = new SimplewebSaaSExtension();
@@ -112,6 +117,8 @@ subscription:
     class: 'Broncha\UserBundle\Entity\UserSubscription'
 plan:
     class: 'Broncha\UserBundle\Entity\UserPlan'
+user:
+    class: 'Broncha\UserBundle\Entity\User'
 EOF;
         $parser = new Parser();
 

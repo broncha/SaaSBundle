@@ -24,6 +24,7 @@ class SimplewebSaaSExtension extends Extension
 
         $container->setParameter('simple_saas.subscription.class', $config['subscription']['class']);
         $container->setParameter('simple_saas.plan.class', $config['plan']['class']);
+        $container->setParameter('simple_saas.user.class', $config['user']['class']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('form_types.yml');
