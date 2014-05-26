@@ -2,6 +2,7 @@
 
 namespace Simpleweb\SaaSBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -20,10 +21,35 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('simpleweb_saas');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $this->addSubscriptionSection($rootNode);
+        $this->addPlanSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    private function addPlanSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('subscription')->isRequired()
+                    ->children()
+                        ->scalarNode('class')->isRequired()->end()
+                    ->end()
+                ->end()
+            ->end()
+            ;
+    }
+
+    private function addSubscriptionSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('plan')->isRequired()
+                    ->children()
+                        ->scalarNode('class')->isRequired()->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }
